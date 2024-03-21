@@ -1,0 +1,15 @@
+.genre-list li {
+  display: inline-block;
+  text-align: center; /* Center text and image */
+  margin-right: 10px; /* Add margin for spacing */
+}
+
+.genre-list li img {
+  width: 100px; /* Adjust image width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 5px; /* Add spacing between image and button */
+}
+
+.container {
+  width: 600px;
+}
