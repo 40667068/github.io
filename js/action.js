@@ -69,8 +69,10 @@ const quizData = [
   }
   
   function displayQuestion() {
+    // Get the current question data:
     const questionData = quizData[currentQuestion];
   
+    // Create DOM elements for question and options:
     const questionElement = document.createElement('div');
     questionElement.className = 'question';
     questionElement.innerHTML = questionData.question;
@@ -78,17 +80,19 @@ const quizData = [
     const optionsElement = document.createElement('div');
     optionsElement.className = 'options';
   
-    const shuffledOptions = [...questionData.options];
-    shuffleArray(shuffledOptions);
+    // Shuffle the answer options for randomness:
+    const shuffledOptions = [...questionData.options]; // Copy the options array
+    shuffleArray(shuffledOptions); // Shuffle the copied options
   
+    // Create and display each option with radio button:
     for (let i = 0; i < shuffledOptions.length; i++) {
       const option = document.createElement('label');
       option.className = 'option';
   
       const radio = document.createElement('input');
       radio.type = 'radio';
-      radio.name = 'quiz';
-      radio.value = shuffledOptions[i];
+      radio.name = 'quiz'; // Group radio buttons for single selection
+      radio.value = shuffledOptions[i]; // Set the answer value
   
       const optionText = document.createTextNode(shuffledOptions[i]);
   
@@ -97,60 +101,107 @@ const quizData = [
       optionsElement.appendChild(option);
     }
   
+    // Clear the quiz container and display the question and options:
     quizContainer.innerHTML = '';
     quizContainer.appendChild(questionElement);
     quizContainer.appendChild(optionsElement);
   }
   
   function checkAnswer() {
+    // Get the selected answer option (if any):
     const selectedOption = document.querySelector('input[name="quiz"]:checked');
+  
+    // If an option is selected:
     if (selectedOption) {
+      // Extract the answer value:
       const answer = selectedOption.value;
+  
+      // Check if the answer is correct:
       if (answer === quizData[currentQuestion].answer) {
+        // Increase the score:
         score++;
       } else {
+        // Track incorrect answer for later review:
         incorrectAnswers.push({
           question: quizData[currentQuestion].question,
           incorrectAnswer: answer,
           correctAnswer: quizData[currentQuestion].answer,
         });
       }
+  
+      // Move to the next question:
       currentQuestion++;
+  
+      // Uncheck the selected option:
       selectedOption.checked = false;
+  
+      // Decide whether to display the next question or the results:
       if (currentQuestion < quizData.length) {
-        displayQuestion();
+        displayQuestion(); // Continue the quiz with the next question
       } else {
-        displayResult();
+        displayResult();  // Quiz is over, show the final result
       }
     }
   }
   
   function displayResult() {
+    // Hide the quiz container element (questions are no longer displayed)
     quizContainer.style.display = 'none';
+  
+    // Hide the submit button (no more answers to submit)
     submitButton.style.display = 'none';
+  
+    // Show the retry button (user can restart the quiz)
     retryButton.style.display = 'inline-block';
+  
+    // Optionally show the "show answer" button (user can see answers)
     showAnswerButton.style.display = 'inline-block';
+  
+    // Update the result container content
     resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
+    //  - ${score} is replaced with the user's actual score
+    //  - ${quizData.length} is replaced with the total number of questions
   }
   
   function retryQuiz() {
+    // Reset the current question index to 0 (start from the beginning)
     currentQuestion = 0;
+  
+    // Reset the score to 0
     score = 0;
+  
+    // Clear the array of incorrect answers
     incorrectAnswers = [];
+  
+    // Show the quiz container element
     quizContainer.style.display = 'block';
+  
+    // Show the submit button
     submitButton.style.display = 'inline-block';
+  
+    // Hide the retry button (user is restarting the quiz)
     retryButton.style.display = 'none';
+  
+    // Hide the "show answer" button (if present)
     showAnswerButton.style.display = 'none';
+  
+    // Clear the result container (previous results)
     resultContainer.innerHTML = '';
+  
+    // Call the displayQuestion function to start the quiz again
     displayQuestion();
   }
   
   function showAnswer() {
+    // Hide quiz elements (questions and submit button):
     quizContainer.style.display = 'none';
     submitButton.style.display = 'none';
+  
+    // Show retry button and hide "show answer" button (user has seen answers):
     retryButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'none';
   
+    // Build HTML content for displaying incorrect answers:
     let incorrectAnswersHtml = '';
     for (let i = 0; i < incorrectAnswers.length; i++) {
       incorrectAnswersHtml += `
@@ -162,6 +213,7 @@ const quizData = [
       `;
     }
   
+    // Update the result container content:
     resultContainer.innerHTML = `
       <p>You scored ${score} out of ${quizData.length}!</p>
       <p>Incorrect Answers:</p>
