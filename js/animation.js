@@ -1,70 +1,55 @@
 const quizData = [
-    {
-      question: 'What is the capital of France?',
-      options: ['Paris', 'London', 'Berlin', 'Madrid'],
-      answer: 'Paris',
-    },
-    {
-      question: 'What is the largest planet in our solar system?',
-      options: ['Mars', 'Saturn', 'Jupiter', 'Neptune'],
-      answer: 'Jupiter',
-    },
-    {
-      question: 'Which country won the FIFA World Cup in 2018?',
-      options: ['Brazil', 'Germany', 'France', 'Argentina'],
-      answer: 'France',
-    },
-    {
-      question: 'What is the tallest mountain in the world?',
-      options: ['Mount Everest', 'K2', 'Kangchenjunga', 'Makalu'],
-      answer: 'Mount Everest',
-    },
-    {
-      question: 'Which is the largest ocean on Earth?',
-      options: [
-        'Pacific Ocean',
-        'Indian Ocean',
-        'Atlantic Ocean',
-        'Arctic Ocean',
-      ],
-      answer: 'Pacific Ocean',
-    },
-    {
-      question: 'What is the chemical symbol for gold?',
-      options: ['Au', 'Ag', 'Cu', 'Fe'],
-      answer: 'Au',
-    },
-    {
-      question: 'Who painted the Mona Lisa?',
-      options: [
-        'Pablo Picasso',
-        'Vincent van Gogh',
-        'Leonardo da Vinci',
-        'Michelangelo',
-      ],
-      answer: 'Leonardo da Vinci',
-    },
-    {
-      question: 'Which planet is known as the Red Planet?',
-      options: ['Mars', 'Venus', 'Mercury', 'Uranus'],
-      answer: 'Mars',
-    },
-    {
-      question: 'What is the largest species of shark?',
-      options: [
-        'Great White Shark',
-        'Whale Shark',
-        'Tiger Shark',
-        'Hammerhead Shark',
-      ],
-      answer: 'Whale Shark',
-    },
-    {
-      question: 'Which animal is known as the King of the Jungle?',
-      options: ['Lion', 'Tiger', 'Elephant', 'Giraffe'],
-      answer: 'Lion',
-    },
-  ];
+  {
+    question: "What is the name of the pixar movie where a toy cowboy goes on an adventure to find his way back to his owner?",
+    options: ["A Bug's Life", "Toy Story", "Monsters, Inc.", "Finding Nemo"],
+    answer: "Toy Story",
+  },
+  {
+    question: "What famous anime features a young ninja named Naruto Uzumaki?",
+    options: ["Dragon Ball Z", "Sailor Moon", "Naruto", "Attack on Titan"],
+    answer: "Naruto",
+  },
+  {
+    question: "In the movie 'Spirited Away', what is the name of the spirit world Chihiro travels to?",
+    options: ["The Spirit Realm", "The Dream World", "The Underworld", "Kami-no-Chi (Land of the Gods)"],
+    answer: "Kami-no-Chi (Land of the Gods)",
+  },
+  {
+    question: "What studio is famous for creating iconic animated characters like Mickey Mouse and Bugs Bunny?",
+    options: ["Pixar", "Studio Ghibli", "Walt Disney Animation Studios", "Warner Bros. Animation"],
+    answer: "Walt Disney Animation Studios",
+  },
+  {
+    question: "What is the name of the grumpy yeti featured in the animated movie 'Smallfoot'?",
+    options: ["Bigfoot", "Everest", "Percy", "Migo"],
+    answer: "Migo",
+  },
+  {
+    question: "In the Japanese anime series 'My Hero Academia', what is the name of the quirkless protagonist who dreams of becoming a hero?",
+    options: ["Izuku Midoriya", "Katsuki Bakugo", "Shoto Todoroki", "All Might"],
+    answer: "Izuku Midoriya",
+  },
+  {
+    question: "What stop-motion animation technique was used to create the characters in 'Wallace and Gromit'?",
+    options: ["Cel animation", "Digital animation", "Claymation", "Rotoscoping"],
+    answer: "Claymation",
+  },
+  {
+    question: "What is the name of the mischievous rabbit from the classic Looney Tunes cartoons?",
+    options: ["Bugs Bunny", "Daffy Duck", "Elmer Fudd", "Wile E. Coyote"],
+    answer: "Bugs Bunny",
+  },
+  {
+    question: "What is the name of the pixar movie where a robot named Wall-E falls in love with a sleek probe named EVE?",
+    options: ["Ratatouille", "WALL-E", "Up", "Finding Dory"],
+    answer: "WALL-E",
+  },
+  {
+    question: "In the movie 'How to Train Your Dragon', what is the name of the young Viking protagonist who befriends a Night Fury dragon?",
+    options: ["Hiccup Horrendous Haddock III", "Astrid Hofferson", "Gobber the Blacksmith", "Stoick the Vast"],
+    answer: "Hiccup Horrendous Haddock III",
+  },
+];
   
   const quizContainer = document.getElementById('quiz');
   const resultContainer = document.getElementById('result');
