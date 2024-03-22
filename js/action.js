@@ -1,4 +1,4 @@
-const quizData = [
+const actionQuiz = [
   {
     question: "What is the name of the retired CIA assassin John Wick is forced back into action for in the first movie?",
     options: ["His family", "His car", "His dog", "His country"],
@@ -51,8 +51,8 @@ const quizData = [
   },
 ];
   
-  const quizContainer = document.getElementById('quiz');
-  const resultContainer = document.getElementById('result');
+  const mainData = document.getElementById('quiz');
+  const resultData = document.getElementById('result');
   const submitButton = document.getElementById('submit');
   const retryButton = document.getElementById('retry');
   const showAnswerButton = document.getElementById('showAnswer');
@@ -70,7 +70,7 @@ const quizData = [
   
   function displayQuestion() {
     // Get the current question data:
-    const questionData = quizData[currentQuestion];
+    const questionData = actionQuiz[currentQuestion];
   
     // Create DOM elements for question and options:
     const questionElement = document.createElement('div');
@@ -102,9 +102,9 @@ const quizData = [
     }
   
     // Clear the quiz container and display the question and options:
-    quizContainer.innerHTML = '';
-    quizContainer.appendChild(questionElement);
-    quizContainer.appendChild(optionsElement);
+    mainData.innerHTML = '';
+    mainData.appendChild(questionElement);
+    mainData.appendChild(optionsElement);
   }
   
   function checkAnswer() {
@@ -117,15 +117,15 @@ const quizData = [
       const answer = selectedOption.value;
   
       // Check if the answer is correct:
-      if (answer === quizData[currentQuestion].answer) {
+      if (answer === actionQuiz[currentQuestion].answer) {
         // Increase the score:
         score++;
       } else {
         // Track incorrect answer for later review:
         incorrectAnswers.push({
-          question: quizData[currentQuestion].question,
+          question: actionQuiz[currentQuestion].question,
           incorrectAnswer: answer,
-          correctAnswer: quizData[currentQuestion].answer,
+          correctAnswer: actionQuiz[currentQuestion].answer,
         });
       }
   
@@ -136,7 +136,7 @@ const quizData = [
       selectedOption.checked = false;
   
       // Decide whether to display the next question or the results:
-      if (currentQuestion < quizData.length) {
+      if (currentQuestion < actionQuiz.length) {
         displayQuestion(); // Continue the quiz with the next question
       } else {
         displayResult();  // Quiz is over, show the final result
@@ -146,7 +146,7 @@ const quizData = [
   
   function displayResult() {
     // Hide the quiz container element (questions are no longer displayed)
-    quizContainer.style.display = 'none';
+    mainData.style.display = 'none';
   
     // Hide the submit button (no more answers to submit)
     submitButton.style.display = 'none';
@@ -158,9 +158,9 @@ const quizData = [
     showAnswerButton.style.display = 'inline-block';
   
     // Update the result container content
-    resultContainer.innerHTML = `You scored ${score} out of ${quizData.length}!`;
+    resultData.innerHTML = `You scored ${score} out of ${actionQuiz.length}!`;
     //  - ${score} is replaced with the user's actual score
-    //  - ${quizData.length} is replaced with the total number of questions
+    //  - ${actionQuiz.length} is replaced with the total number of questions
   }
   
   function retryQuiz() {
@@ -174,7 +174,7 @@ const quizData = [
     incorrectAnswers = [];
   
     // Show the quiz container element
-    quizContainer.style.display = 'block';
+    mainData.style.display = 'block';
   
     // Show the submit button
     submitButton.style.display = 'inline-block';
@@ -186,7 +186,7 @@ const quizData = [
     showAnswerButton.style.display = 'none';
   
     // Clear the result container (previous results)
-    resultContainer.innerHTML = '';
+    resultData.innerHTML = '';
   
     // Call the displayQuestion function to start the quiz again
     displayQuestion();
@@ -194,7 +194,7 @@ const quizData = [
   
   function showAnswer() {
     // Hide quiz elements (questions and submit button):
-    quizContainer.style.display = 'none';
+    mainData.style.display = 'none';
     submitButton.style.display = 'none';
   
     // Show retry button and hide "show answer" button (user has seen answers):
@@ -214,8 +214,8 @@ const quizData = [
     }
   
     // Update the result container content:
-    resultContainer.innerHTML = `
-      <p>You scored ${score} out of ${quizData.length}!</p>
+    resultData.innerHTML = `
+      <p>You scored ${score} out of ${actionQuiz.length}!</p>
       <p>Incorrect Answers:</p>
       ${incorrectAnswersHtml}
     `;
