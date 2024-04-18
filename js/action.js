@@ -2,64 +2,64 @@ const actionQuiz = [
   {
     question: "What is the name of the retired CIA assassin John Wick is forced back into action for in the first movie?",
     options: ["His family", "His car", "His dog", "His country"],
-    answer: "His dog",
+    option: "His dog",
   },
   {
     question: "In the 'Matrix' franchise, what is the name of the red pill that allows Neo to see the true nature of reality?",
     options: ["The Red Pill", "The Blue Pill", "The Morpheus Pill", "The Oracle Pill"],
-    answer: "The Red Pill",
+    option: "The Red Pill",
   },
   {
     question: "What is the name of the high-security prison on Alcatraz Island featured in 'The Rock'?",
     options: ["Alcatraz Federal Penitentiary", "San Francisco City Jail", "Angel Island Prison", "Golden Gate Prison"],
-    answer: "Alcatraz Federal Penitentiary",
+    option: "Alcatraz Federal Penitentiary",
   },
   {
     question: "What famous line does Maximus Decimus Meridius say before his final battle in 'Gladiator'?",
     options: ["Are you not entertained?", "This is Sparta!", "Strength and honor!", "Victory or death!"],
-    answer: "Are you not entertained?",
+    option: "Are you not entertained?",
   },
   {
     question: "In the 'Fast & Furious' franchise, what is the name of Dominic Toretto's deceased lover?",
     options: ["Mia", "Letty", "Gisele", "Monica"],
-    answer: "Letty",
+    option: "Letty",
   },
   {
     question: "What is the name of the futuristic sport that combines motorcycle racing and martial arts in 'Alita: Battle Angel'?",
     options: ["Motorball", "Skyball", "Cyber Race", "Death Race"],
-    answer: "Motorball",
+    option: "Motorball",
   },
   {
     question: "In the 'John Wick' movies, what type of currency do assassins use?",
     options: ["Gold Coins", "Bitcoin", "Dollars", "Euros"],
-    answer: "Gold Coins",
+    option: "Gold Coins",
   },
   {
     question: "What is the name of the dystopian city depicted in the 'Hunger Games' franchise?",
     options: ["Panem", "Capitol", "District 12", "The Arena"],
-    answer: "Panem",
+    option: "Panem",
   },
   {
     question: "What famous catchphrase does Arnold Schwarzenegger utter in the 'Terminator' movies?",
     options: ["I'll be back", "Hasta la vista, baby!", "You're terminated!", "Come with me if you want to live!"],
-    answer: "I'll be back",
+    option: "I'll be back",
   },
   {
     question: "What is the name of the secret government agency that recruits Ethan Hunt in 'Mission: Impossible'?",
     options: ["IMF (Impossible Missions Force)", "CIA", "FBI", "MI6"],
-    answer: "IMF (Impossible Missions Force)",
+    option: "IMF (Impossible Missions Force)",
   },
 ];
   
-  const mainData = document.getElementById('quiz');
-  const resultData = document.getElementById('result');
-  const submitButton = document.getElementById('submit');
-  const retryButton = document.getElementById('retry');
-  const showAnswerButton = document.getElementById('showAnswer');
+  const subContainer = document.getElementById('subcontainer');
+  const displayScore = document.getElementById('displayscore');
+  const submitBtn = document.getElementById('submitbtn');
+  const retryBtn = document.getElementById('retrybtn');
+  const displayAnsBtn = document.getElementById('displayoption');
   
-  let currentQuestion = 0;
-  let score = 0;
-  let incorrectAnswers = [];
+  let presentIndex = 0;
+  let userScore = 0;
+  let wrongOptions = [];
   
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -70,7 +70,7 @@ const actionQuiz = [
   
   function displayQuestion() {
     // Get the current question data:
-    const questionData = actionQuiz[currentQuestion];
+    const questionData = actionQuiz[presentIndex];
   
     // Create DOM elements for question and options:
     const questionElement = document.createElement('div');
@@ -80,7 +80,7 @@ const actionQuiz = [
     const optionsElement = document.createElement('div');
     optionsElement.className = 'options';
   
-    // Shuffle the answer options for randomness:
+    // Shuffle the option options for randomness:
     const shuffledOptions = [...questionData.options]; // Copy the options array
     shuffleArray(shuffledOptions); // Shuffle the copied options
   
@@ -92,7 +92,7 @@ const actionQuiz = [
       const radio = document.createElement('input');
       radio.type = 'radio';
       radio.name = 'quiz'; // Group radio buttons for single selection
-      radio.value = shuffledOptions[i]; // Set the answer value
+      radio.value = shuffledOptions[i]; // Set the option value
   
       const optionText = document.createTextNode(shuffledOptions[i]);
   
@@ -102,41 +102,41 @@ const actionQuiz = [
     }
   
     // Clear the quiz container and display the question and options:
-    mainData.innerHTML = '';
-    mainData.appendChild(questionElement);
-    mainData.appendChild(optionsElement);
+    subContainer.innerHTML = '';
+    subContainer.appendChild(questionElement);
+    subContainer.appendChild(optionsElement);
   }
   
   function checkAnswer() {
-    // Get the selected answer option (if any):
+    // Get the selected option option (if any):
     const selectedOption = document.querySelector('input[name="quiz"]:checked');
   
     // If an option is selected:
     if (selectedOption) {
-      // Extract the answer value:
-      const answer = selectedOption.value;
+      // Extract the option value:
+      const option = selectedOption.value;
   
-      // Check if the answer is correct:
-      if (answer === actionQuiz[currentQuestion].answer) {
-        // Increase the score:
-        score++;
+      // Check if the option is correct:
+      if (option === actionQuiz[presentIndex].option) {
+        // Increase the user score:
+        userScore++;
       } else {
-        // Track incorrect answer for later review:
-        incorrectAnswers.push({
-          question: actionQuiz[currentQuestion].question,
-          incorrectAnswer: answer,
-          correctAnswer: actionQuiz[currentQuestion].answer,
+        // Track incorrect option for later review:
+        wrongOptions.push({
+          question: actionQuiz[presentIndex].question,
+          wrongOption: option,
+          correctAnswer: actionQuiz[presentIndex].option,
         });
       }
   
       // Move to the next question:
-      currentQuestion++;
+      presentIndex++;
   
       // Uncheck the selected option:
       selectedOption.checked = false;
   
       // Decide whether to display the next question or the results:
-      if (currentQuestion < actionQuiz.length) {
+      if (presentIndex < actionQuiz.length) {
         displayQuestion(); // Continue the quiz with the next question
       } else {
         displayResult();  // Quiz is over, show the final result
@@ -146,47 +146,47 @@ const actionQuiz = [
   
   function displayResult() {
     // Hide the quiz container element (questions are no longer displayed)
-    mainData.style.display = 'none';
+    subContainer.style.display = 'none';
   
-    // Hide the submit button (no more answers to submit)
-    submitButton.style.display = 'none';
+    // Hide the submit button (no more options to submit)
+    submitBtn.style.display = 'none';
   
     // Show the retry button (user can restart the quiz)
-    retryButton.style.display = 'inline-block';
+    retryBtn.style.display = 'inline-block';
   
-    // Optionally show the "show answer" button (user can see answers)
-    showAnswerButton.style.display = 'inline-block';
+    // Optionally show the "show option" button (user can see options)
+    displayAnsBtn.style.display = 'inline-block';
   
     // Update the result container content
-    resultData.innerHTML = `You scored ${score} out of ${actionQuiz.length}!`;
-    //  - ${score} is replaced with the user's actual score
+    displayScore.innerHTML = `You scored ${userScore} out of ${actionQuiz.length}!`;
+    //  - ${userScore} is replaced with the user's actual score
     //  - ${actionQuiz.length} is replaced with the total number of questions
   }
   
   function retryQuiz() {
     // Reset the current question index to 0 (start from the beginning)
-    currentQuestion = 0;
+    presentIndex = 0;
   
-    // Reset the score to 0
-    score = 0;
+    // Reset the userScore to 0
+    userScore = 0;
   
-    // Clear the array of incorrect answers
-    incorrectAnswers = [];
+    // Clear the array of incorrect options
+    wrongOptions = [];
   
     // Show the quiz container element
-    mainData.style.display = 'block';
+    subContainer.style.display = 'block';
   
     // Show the submit button
-    submitButton.style.display = 'inline-block';
+    submitBtn.style.display = 'inline-block';
   
     // Hide the retry button (user is restarting the quiz)
-    retryButton.style.display = 'none';
+    retryBtn.style.display = 'none';
   
-    // Hide the "show answer" button (if present)
-    showAnswerButton.style.display = 'none';
+    // Hide the "show option" button (if present)
+    displayAnsBtn.style.display = 'none';
   
     // Clear the result container (previous results)
-    resultData.innerHTML = '';
+    displayScore.innerHTML = '';
   
     // Call the displayQuestion function to start the quiz again
     displayQuestion();
@@ -194,35 +194,35 @@ const actionQuiz = [
   
   function showAnswer() {
     // Hide quiz elements (questions and submit button):
-    mainData.style.display = 'none';
-    submitButton.style.display = 'none';
+    subContainer.style.display = 'none';
+    submitBtn.style.display = 'none';
   
-    // Show retry button and hide "show answer" button (user has seen answers):
-    retryButton.style.display = 'inline-block';
-    showAnswerButton.style.display = 'none';
+    // Show retry button and hide "show option" button (user has seen options):
+    retryBtn.style.display = 'inline-block';
+    displayAnsBtn.style.display = 'none';
   
-    // Build HTML content for displaying incorrect answers:
-    let incorrectAnswersHtml = '';
-    for (let i = 0; i < incorrectAnswers.length; i++) {
-      incorrectAnswersHtml += `
+    // Build HTML content for displaying incorrect options:
+    let wrongOptionsHtml = '';
+    for (let i = 0; i < wrongOptions.length; i++) {
+      wrongOptionsHtml += `
         <p>
-          <strong>Question:</strong> ${incorrectAnswers[i].question}<br>
-          <strong>Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
-          <strong>Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
+          <strong>Question:</strong> ${wrongOptions[i].question}<br>
+          <strong>Your Answer:</strong> ${wrongOptions[i].wrongOption}<br>
+          <strong>Correct Answer:</strong> ${wrongOptions[i].correctAnswer}
         </p>
       `;
     }
   
     // Update the result container content:
-    resultData.innerHTML = `
-      <p>You scored ${score} out of ${actionQuiz.length}!</p>
+    displayScore.innerHTML = `
+      <p>You scored ${userScore} out of ${actionQuiz.length}!</p>
       <p>Incorrect Answers:</p>
-      ${incorrectAnswersHtml}
+      ${wrongOptionsHtml}
     `;
   }
   
-  submitButton.addEventListener('click', checkAnswer);
-  retryButton.addEventListener('click', retryQuiz);
-  showAnswerButton.addEventListener('click', showAnswer);
+  submitBtn.addEventListener('click', checkAnswer);
+  retryBtn.addEventListener('click', retryQuiz);
+  displayAnsBtn.addEventListener('click', showAnswer);
   
   displayQuestion();
