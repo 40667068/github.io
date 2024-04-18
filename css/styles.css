@@ -35,7 +35,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-.submitbtn {
+.button {
   display: inline-block;
   padding: 10px 20px;
   background-color: #428bca;
@@ -48,17 +48,17 @@ h1 {
   margin-right: 10px;
 }
 
-.submitbtn:hover {
+.button:hover {
   background-color: #3071a9;
 }
 
-.displayscore {
+.result {
   text-align: center;
   margin-top: 20px;
   font-weight: bold;
 }
 
-.hidden{
+.hide{
   display: none;
 }
 .topnav {
