@@ -1,66 +1,67 @@
 const animationQuiz = [
   {
-    question: "What is the name of the pixar movie where a toy cowboy goes on an adventure to find his way back to his owner?",
-    options: ["A Bug's Life", "Toy Story", "Monsters, Inc.", "Finding Nemo"],
-    answer: "Toy Story",
+    indexQuest: "What is the name of the pixar movie where a toy cowboy goes on an adventure to find his way back to his owner?",
+    choices: ["A Bug's Life", "Toy Story", "Monsters, Inc.", "Finding Nemo"],
+    choice: "Toy Story",
   },
   {
-    question: "What famous anime features a young ninja named Naruto Uzumaki?",
-    options: ["Dragon Ball Z", "Sailor Moon", "Naruto", "Attack on Titan"],
-    answer: "Naruto",
+    indexQuest: "What famous anime features a young ninja named Naruto Uzumaki?",
+    choices: ["Dragon Ball Z", "Sailor Moon", "Naruto", "Attack on Titan"],
+    choice: "Naruto",
   },
   {
-    question: "In the movie 'Spirited Away', what is the name of the spirit world Chihiro travels to?",
-    options: ["The Spirit Realm", "The Dream World", "The Underworld", "Kami-no-Chi (Land of the Gods)"],
-    answer: "Kami-no-Chi (Land of the Gods)",
+    indexQuest: "In the movie 'Spirited Away', what is the name of the spirit world Chihiro travels to?",
+    choices: ["The Spirit Realm", "The Dream World", "The Underworld", "Kami-no-Chi (Land of the Gods)"],
+    choice: "Kami-no-Chi (Land of the Gods)",
   },
   {
-    question: "What studio is famous for creating iconic animated characters like Mickey Mouse and Bugs Bunny?",
-    options: ["Pixar", "Studio Ghibli", "Walt Disney Animation Studios", "Warner Bros. Animation"],
-    answer: "Walt Disney Animation Studios",
+    indexQuest: "What studio is famous for creating iconic animated characters like Mickey Mouse and Bugs Bunny?",
+    choices: ["Pixar", "Studio Ghibli", "Walt Disney Animation Studios", "Warner Bros. Animation"],
+    choice: "Walt Disney Animation Studios",
   },
   {
-    question: "What is the name of the grumpy yeti featured in the animated movie 'Smallfoot'?",
-    options: ["Bigfoot", "Everest", "Percy", "Migo"],
-    answer: "Migo",
+    indexQuest: "What is the name of the grumpy yeti featured in the animated movie 'Smallfoot'?",
+    choices: ["Bigfoot", "Everest", "Percy", "Migo"],
+    choice: "Migo",
   },
   {
-    question: "In the Japanese anime series 'My Hero Academia', what is the name of the quirkless protagonist who dreams of becoming a hero?",
-    options: ["Izuku Midoriya", "Katsuki Bakugo", "Shoto Todoroki", "All Might"],
-    answer: "Izuku Midoriya",
+    indexQuest: "In the Japanese anime series 'My Hero Academia', what is the name of the quirkless protagonist who dreams of becoming a hero?",
+    choices: ["Izuku Midoriya", "Katsuki Bakugo", "Shoto Todoroki", "All Might"],
+    choice: "Izuku Midoriya",
   },
   {
-    question: "What stop-motion animation technique was used to create the characters in 'Wallace and Gromit'?",
-    options: ["Cel animation", "Digital animation", "Claymation", "Rotoscoping"],
-    answer: "Claymation",
+    indexQuest: "What stop-motion animation technique was used to create the characters in 'Wallace and Gromit'?",
+    choices: ["Cel animation", "Digital animation", "Claymation", "Rotoscoping"],
+    choice: "Claymation",
   },
   {
-    question: "What is the name of the mischievous rabbit from the classic Looney Tunes cartoons?",
-    options: ["Bugs Bunny", "Daffy Duck", "Elmer Fudd", "Wile E. Coyote"],
-    answer: "Bugs Bunny",
+    indexQuest: "What is the name of the mischievous rabbit from the classic Looney Tunes cartoons?",
+    choices: ["Bugs Bunny", "Daffy Duck", "Elmer Fudd", "Wile E. Coyote"],
+    choice: "Bugs Bunny",
   },
   {
-    question: "What is the name of the pixar movie where a robot named Wall-E falls in love with a sleek probe named EVE?",
-    options: ["Ratatouille", "WALL-E", "Up", "Finding Dory"],
-    answer: "WALL-E",
+    indexQuest: "What is the name of the pixar movie where a robot named Wall-E falls in love with a sleek probe named EVE?",
+    choices: ["Ratatouille", "WALL-E", "Up", "Finding Dory"],
+    choice: "WALL-E",
   },
   {
-    question: "In the movie 'How to Train Your Dragon', what is the name of the young Viking protagonist who befriends a Night Fury dragon?",
-    options: ["Hiccup Horrendous Haddock III", "Astrid Hofferson", "Gobber the Blacksmith", "Stoick the Vast"],
-    answer: "Hiccup Horrendous Haddock III",
+    indexQuest: "In the movie 'How to Train Your Dragon', what is the name of the young Viking protagonist who befriends a Night Fury dragon?",
+    choices: ["Hiccup Horrendous Haddock III", "Astrid Hofferson", "Gobber the Blacksmith", "Stoick the Vast"],
+    choice: "Hiccup Horrendous Haddock III",
   },
 ];
   
-const mainData = document.getElementById('quiz');
-const resultData = document.getElementById('result');
-const submitButton = document.getElementById('submit');
-const retryButton = document.getElementById('retry');
-const showAnswerButton = document.getElementById('showAnswer');
+const questionContainer = document.getElementById('questioncontainer');
+const resultContainer = document.getElementById('resultcontainer');
+const submitBtn = document.getElementById('submitbtn');
+const retryBtn = document.getElementById('retrybtn');
+const revealAnswerBtn = document.getElementById('revealanswer');
 
-let currentQuestion = 0;
-let score = 0;
-let incorrectAnswers = [];
+let questionIndexNow = 0;
+let userScore = 0;
+let wrongChoices = [];
 
+// using the Fisher-Yates algorithm to shuffle the choices for the indexed question
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -68,76 +69,76 @@ function shuffleArray(array) {
   }
 }
 
-function displayQuestion() {
-  // Get the current question data:
-  const questionData = animationQuiz[currentQuestion];
+function showCurrentQuestIndex() {
+  // Get the current question index data:
+  const indexQuestData = animationQuiz[questionIndexNow];
 
-  // Create DOM elements for question and options:
-  const questionElement = document.createElement('div');
-  questionElement.className = 'question';
-  questionElement.innerHTML = questionData.question;
+  // Create DOM elements for indexed question and choices:
+  const indexQuestElement = document.createElement('div');
+  indexQuestElement.className = 'indexQuest';
+  indexQuestElement.innerHTML = indexQuestData.indexQuest;
 
-  const optionsElement = document.createElement('div');
-  optionsElement.className = 'options';
+  const choicesElement = document.createElement('div');
+  choicesElement.className = 'choices';
 
-  // Shuffle the answer options for randomness:
-  const shuffledOptions = [...questionData.options]; // Copy the options array
-  shuffleArray(shuffledOptions); // Shuffle the copied options
+  // Shuffle the answer choices for randomness:
+  const shuffledChoices = [...indexQuestData.choices]; // Copy the choices array
+  shuffleArray(shuffledChoices); // Shuffle the copied choices
 
-  // Create and display each option with radio button:
-  for (let i = 0; i < shuffledOptions.length; i++) {
-    const option = document.createElement('label');
-    option.className = 'option';
+  // Create and display each choice with radio button:
+  for (let i = 0; i < shuffledChoices.length; i++) {
+    const choice = document.createElement('label');
+    choice.className = 'choice';
 
-    const radio = document.createElement('input');
-    radio.type = 'radio';
-    radio.name = 'quiz'; // Group radio buttons for single selection
-    radio.value = shuffledOptions[i]; // Set the answer value
+    const radioBtn = document.createElement('input');
+    radioBtn.type = 'radio';
+    radioBtn.name = 'choice'; // Group radio buttons for single selection
+    radioBtn.value = shuffledChoices[i]; // Set the choice value
 
-    const optionText = document.createTextNode(shuffledOptions[i]);
+    const choiceText = document.createTextNode(shuffledChoices[i]);
 
-    option.appendChild(radio);
-    option.appendChild(optionText);
-    optionsElement.appendChild(option);
+    choice.appendChild(radioBtn);
+    choice.appendChild(choiceText);
+    choicesElement.appendChild(choice);
   }
 
-  // Clear the quiz container and display the question and options:
-  mainData.innerHTML = '';
-  mainData.appendChild(questionElement);
-  mainData.appendChild(optionsElement);
+  // Clear the quiz container and display the question and choices:
+  questionContainer.innerHTML = '';
+  questionContainer.appendChild(indexQuestElement);
+  questionContainer.appendChild(choicesElement);
 }
 
-function checkAnswer() {
-  // Get the selected answer option (if any):
-  const selectedOption = document.querySelector('input[name="quiz"]:checked');
+function checkSelectedChoice() {
+  // Get the selected choice (if any):
+  const selectedChoice = document.querySelector('input[name="choice"]:checked');
 
-  // If an option is selected:
-  if (selectedOption) {
-    // Extract the answer value:
-    const answer = selectedOption.value;
+  // If a choice is selected:
+  if (selectedChoice) {
+    // Extract the choice value:
+    const choice = selectedChoice.value;
 
-    // Check if the answer is correct:
-    if (answer === animationQuiz[currentQuestion].answer) {
+    // Check if the choice is correct:
+    if (choice === animationQuiz[questionIndexNow].choice) {
       // Increase the score:
-      score++;
+      userScore++;
     } else {
-      // Track incorrect answer for later review:
-      incorrectAnswers.push({
-        question: animationQuiz[currentQuestion].question,
-        incorrectAnswer: answer,
-        correctAnswer: animationQuiz[currentQuestion].answer,
+      // Track incorrect choice for later review:
+      wrongChoices.push({
+        indexQuest: animationQuiz[questionIndexNow].indexQuest,
+        incorrectChoice: choice,
+        correctChoice: animationQuiz[questionIndexNow].choice,
       });
     }
 
     // Move to the next question:
-    currentQuestion++;
+    questionIndexNow++;
 
-    // Uncheck the selected option:
-    selectedOption.checked = false;
+    // Uncheck the selected choice:
+    selectedChoice.checked = false;
 
     // Decide whether to display the next question or the results:
-    if (currentQuestion < animationQuiz.length) {
-      displayQuestion(); // Continue the quiz with the next question
+    if (questionIndexNow < animationQuiz.length) {
+      showCurrentQuestIndex(); // Continue the quiz with the next question
     } else {
       displayResult();  // Quiz is over, show the final result
     }
@@ -146,83 +147,83 @@ function checkAnswer() {
 
 function displayResult() {
   // Hide the quiz container element (questions are no longer displayed)
-  mainData.style.display = 'none';
+  questionContainer.style.display = 'none';
 
-  // Hide the submit button (no more answers to submit)
-  submitButton.style.display = 'none';
+  // Hide the submit button (no more choices to submit)
+  submitBtn.style.display = 'none';
 
   // Show the retry button (user can restart the quiz)
-  retryButton.style.display = 'inline-block';
+  retryBtn.style.display = 'inline-block';
 
-  // Optionally show the "show answer" button (user can see answers)
-  showAnswerButton.style.display = 'inline-block';
+  // Optionally show the "reveal answers" button (user can see choices)
+  revealAnswerBtn.style.display = 'inline-block';
 
   // Update the result container content
-  resultData.innerHTML = `You scored ${score} out of ${animationQuiz.length}!`;
-  //  - ${score} is replaced with the user's actual score
+  resultContainer.innerHTML = `You scored ${userScore} out of ${animationQuiz.length}!`;
+  //  - ${userScore} is replaced with the user's actual score
   //  - ${animationQuiz.length} is replaced with the total number of questions
 }
 
 function retryQuiz() {
   // Reset the current question index to 0 (start from the beginning)
-  currentQuestion = 0;
+  questionIndexNow = 0;
 
   // Reset the score to 0
-  score = 0;
+  userScore = 0;
 
-  // Clear the array of incorrect answers
-  incorrectAnswers = [];
+  // Clear the array of incorrect choices
+  wrongChoices = [];
 
   // Show the quiz container element
-  mainData.style.display = 'block';
+  questionContainer.style.display = 'block';
 
   // Show the submit button
-  submitButton.style.display = 'inline-block';
+  submitBtn.style.display = 'inline-block';
 
   // Hide the retry button (user is restarting the quiz)
-  retryButton.style.display = 'none';
+  retryBtn.style.display = 'none';
 
-  // Hide the "show answer" button (if present)
-  showAnswerButton.style.display = 'none';
+  // Hide the "reveal answers" button (if present)
+  revealAnswerBtn.style.display = 'none';
 
   // Clear the result container (previous results)
-  resultData.innerHTML = '';
+  resultContainer.innerHTML = '';
 
-  // Call the displayQuestion function to start the quiz again
-  displayQuestion();
+  // Call the showCurrentQuestIndex function to start the quiz again
+  showCurrentQuestIndex();
 }
 
 function showAnswer() {
   // Hide quiz elements (questions and submit button):
-  mainData.style.display = 'none';
-  submitButton.style.display = 'none';
+  questionContainer.style.display = 'none';
+  submitBtn.style.display = 'none';
 
-  // Show retry button and hide "show answer" button (user has seen answers):
-  retryButton.style.display = 'inline-block';
-  showAnswerButton.style.display = 'none';
+  // Show the try again button and hide "reveal answer" button (user has seen choices):
+  retryBtn.style.display = 'inline-block';
+  revealAnswerBtn.style.display = 'none';
 
-  // Build HTML content for displaying incorrect answers:
-  let incorrectAnswersHtml = '';
-  for (let i = 0; i < incorrectAnswers.length; i++) {
-    incorrectAnswersHtml += `
+  // Build HTML content for displaying incorrect choices:
+  let wrongChoicesHtml = '';
+  for (let i = 0; i < wrongChoices.length; i++) {
+    wrongChoicesHtml += `
       <p>
-        <strong>Question:</strong> ${incorrectAnswers[i].question}<br>
-        <strong>Your Answer:</strong> ${incorrectAnswers[i].incorrectAnswer}<br>
-        <strong>Correct Answer:</strong> ${incorrectAnswers[i].correctAnswer}
+        <strong>Question:</strong> ${wrongChoices[i].indexQuest}<br>
+        <strong>Your Answer:</strong> ${wrongChoices[i].incorrectChoice}<br>
+        <strong>Correct Answer:</strong> ${wrongChoices[i].correctChoice}
       </p>
     `;
   }
 
   // Update the result container content:
-  resultData.innerHTML = `
-    <p>You scored ${score} out of ${animationQuiz.length}!</p>
+  resultContainer.innerHTML = `
+    <p>You scored ${userScore} out of ${animationQuiz.length}!</p>
     <p>Incorrect Answers:</p>
-    ${incorrectAnswersHtml}
+    ${wrongChoicesHtml}
   `;
 }
 
-submitButton.addEventListener('click', checkAnswer);
-retryButton.addEventListener('click', retryQuiz);
-showAnswerButton.addEventListener('click', showAnswer);
+submitBtn.addEventListener('click', checkSelectedChoice);
+retryBtn.addEventListener('click', retryQuiz);
+revealAnswerBtn.addEventListener('click', showAnswer);
 
-displayQuestion();
+showCurrentQuestIndex();

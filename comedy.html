@@ -5,18 +5,29 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="container">
+  <div class="maincontainer">
     <div class="topnav">
       <a href="about.html">About</a>
       <a href="start.html">Start</a>
       <a href="index.html">Home</a>     
     </div>
     <h2>Comedy Movies Quiz</h2>
-    <div id="quiz"></div>
-    <div id="result" class="result"></div>
-    <button id="submit" class="button">Submit</button>
-    <button id="retry" class="button hide">Retry</button>
-    <button id="showAnswer" class="button hide">Show Answer</button>
+    <!-- Comedy.js controls all the functionality of the webpage including the buttons dynamically to foster user interaction -->
+    
+    <!-- called by function displayQuestion to append the question and answer options dynamically -->
+    <div id="questioncontainer"></div>
+    
+    <!-- function showScore to display the final score and potentially incorrect answers -->
+    <div id="resultcontainer" class="resultcontainer"></div>
+    
+    <!-- triggers the checkAnswer function in JavaScript -->
+    <button id="submitbtn" class="btn">Submit</button> 
+
+    <!--is initially hidden and becomes visible in the showScore function to restart the quiz -->
+    <button id="retrybtn" class="btn hidden">Try Again</button>
+    
+    <!-- also hidden and becomes visible in the showScore function to reveal answers -->
+    <button id="revealanswer" class="btn hidden">Reveal Answers</button> 
   </div>
   <script src="js/comedy.js"></script>
 </body>
