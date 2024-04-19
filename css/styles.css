@@ -21,21 +21,21 @@ h1 {
   text-align: center;
 }
 
-.question {
+.indexQuest {
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.options {
+.choices {
   margin-bottom: 20px;
 }
 
-.option {
+.choice {
   display: block;
   margin-bottom: 10px;
 }
 
-.button {
+.btn {
   display: inline-block;
   padding: 10px 20px;
   background-color: #428bca;
@@ -52,13 +52,13 @@ h1 {
   background-color: #3071a9;
 }
 
-.result {
+.resultcontainer {
   text-align: center;
   margin-top: 20px;
   font-weight: bold;
 }
 
-.hide{
+.hidden{
   display: none;
 }
 .topnav {
